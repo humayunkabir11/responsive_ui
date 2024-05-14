@@ -18,13 +18,14 @@ class Header extends StatelessWidget {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: context.read<MenuAppController>().controlMenu,
+            onPressed: context.read<MenuAppController>().controlMenu
           ),
-        if (!Responsive.isMobile(context))
+        if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
           Text(
-            "Dashboard",
+            "Admin Dashboard",
             style: Theme.of(context).textTheme.titleLarge,
           ),
+
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         Expanded(child: SearchField()),
@@ -54,15 +55,19 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
+          Container(
+            height: defaultPadding*2,
+            width: defaultPadding*2,
+            child: Icon(Icons.person),
+            decoration: BoxDecoration(
+              color: primaryColor,
+              shape: BoxShape.circle
+            )
           ),
           if (!Responsive.isMobile(context))
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Angelina Jolie"),
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              child: Text("Humayun Kabir"),
             ),
           Icon(Icons.keyboard_arrow_down),
         ],
