@@ -2,6 +2,7 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -20,12 +21,33 @@ class Header extends StatelessWidget {
             icon: Icon(Icons.menu),
             onPressed: context.read<MenuAppController>().controlMenu
           ),
-        if (!Responsive.isMobile(context) && !Responsive.isTablet(context))
+        if (Responsive.isDesktop(context))
           Text(
-            "Admin Dashboard",
-            style: Theme.of(context).textTheme.titleLarge,
+            "Desktop",
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Colors.green,
+              fontSize: 32,
+              fontWeight: FontWeight.w700
+            ),
+          ),
+        if(Responsive.isMobile(context))
+          Text(
+            "Mobile",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Colors.white,
+              fontSize: 20
+            ),
           ),
 
+        if(Responsive.isTablet(context))
+          Text(
+            "Tablet",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: primaryColor,
+                fontSize: 24
+            ),
+          ),
+        if (Responsive.isMobile(context)) SizedBox(width: 12,),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         Expanded(child: SearchField()),
